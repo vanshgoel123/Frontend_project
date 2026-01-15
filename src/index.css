@@ -1,13 +1,65 @@
-body {
+*,
+::before,
+::after {
+  box-sizing: border-box;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+}
+label {
+  font-size: 20px;
+}
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  background-color: rgb(246, 241, 235);
+  padding: 32px 48px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 8px 6px 24px 0px rgba(66, 68, 90, 1);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.container > h1 {
+  margin-bottom: 20px;
+}
+
+.container > form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.container div {
+  display: flex;
+  flex-direction: column;
+}
+.container input {
+  background-color: rgb(246, 241, 235);
+  width: 100%;
+  font-size: 15px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid black;
+}
+.container input::placeholder {
+  font-size: 12px;
+  font-style: italic;
+}
+
+button{
+  background-color: #dabcbc;
+  border: none;
+  font-size: 18px;
+  border-radius: 5px;
+  padding: 6px;
+  cursor: pointer;
+  margin: 7px 0;
 }
