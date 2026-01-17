@@ -7,19 +7,19 @@ describe('Login Component', () => {
   });
 
   test('should render login heading', () => {
-    const { container } = render(<h1>Login</h1>);
+    render(<h1>Login</h1>);
     expect(screen.getByText('Login')).toBeInTheDocument();
   });
 
   test('should have email input', () => {
-    const { container } = render(
+    render(
       <input placeholder="Enter your email" />
     );
     expect(screen.getByPlaceholderText('Enter your email')).toBeInTheDocument();
   });
 
   test('should update email input value', () => {
-    const { container } = render(
+    render(
       <input placeholder="Enter your email" />
     );
     const input = screen.getByPlaceholderText('Enter your email');
@@ -28,14 +28,14 @@ describe('Login Component', () => {
   });
 
   test('should have password input', () => {
-    const { container } = render(
+    render(
       <input type="password" placeholder="Enter your password" />
     );
     expect(screen.getByPlaceholderText('Enter your password')).toBeInTheDocument();
   });
 
   test('should update password input value', () => {
-    const { container } = render(
+    render(
       <input type="password" placeholder="Enter your password" />
     );
     const input = screen.getByPlaceholderText('Enter your password');
@@ -44,7 +44,7 @@ describe('Login Component', () => {
   });
 
   test('should have login button', () => {
-    const { container } = render(
+    render(
       <button>Login</button>
     );
     expect(screen.getByRole('button', { name: /login/i })).toBeInTheDocument();
