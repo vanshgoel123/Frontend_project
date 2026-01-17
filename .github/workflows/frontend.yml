@@ -26,6 +26,7 @@ jobs:
               run: npm run lint
             
     Build:
+        needs: Lint
         runs-on: ubuntu-latest
         steps:
             - name: Get the repo files
