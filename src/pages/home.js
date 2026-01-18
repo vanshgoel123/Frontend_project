@@ -23,7 +23,7 @@ function Home() {
 
   const fetchProducts = async () => {
     try {
-      const url = "http://localhost:8000/products";
+      const url = `${process.env.REACT_APP_BACKEND_URL}/products`;
       const headers = {
         Authorization: localStorage.getItem("jwtToken"),
       };
