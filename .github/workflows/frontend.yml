@@ -74,7 +74,7 @@ jobs:
               run: npm run test
     Deploy:
         needs: Test
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: ./.github/workflows/deploy.yml
         secrets:
             Docker_username: ${{ secrets.DOCKER_USERNAME }}
