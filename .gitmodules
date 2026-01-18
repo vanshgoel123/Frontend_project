@@ -1,3 +1,3 @@
 [submodule "project_contracts"]
 	path = project_contracts
-	url = git@github-personal:vanshgoel123/project_contracts.git
+	url = git@github.com:vanshgoel123/project_contracts.git
