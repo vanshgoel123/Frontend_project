@@ -12,6 +12,7 @@ on:
             results:
                 description: 'The result of the deployment'
                 value: ${{ jobs.Deploy.outputs.results }}
+
 jobs:
     Deploy:
         outputs:
@@ -20,24 +21,44 @@ jobs:
         steps:
             - name: Get the repo files
               uses: actions/checkout@v3
+            
             - name: Init submodules
               run: git submodule update --init --recursive
+            
+            - name: Get version from package.json
+              id: version
+              run: |
+                VERSION=$(node -p "require('./package.json').version")
+                echo "version=$VERSION" >> $GITHUB_OUTPUT
+            
             - name: Download Frontend Build Artifact
               uses: actions/download-artifact@v4
               with:
                 name: frontend-build
                 path: build
+            
             - name: Log in to Docker Hub
               uses: docker/login-action@v3
               with:
-                    username: ${{ secrets.Docker_username }}
-                    password: ${{ secrets.Docker_password }}
+                username: ${{ secrets.Docker_username }}
+                password: ${{ secrets.Docker_password }}
+            
             - name: Build and Push Docker Image
               run: |
-                    docker build -t ${{ secrets.Docker_username }}/frontend:latest .
-                    docker push ${{ secrets.Docker_username }}/frontend:latest
+                docker build -t ${{ secrets.Docker_username }}/frontend:latest \
+                             -t ${{ secrets.Docker_username }}/frontend:v${{ steps.version.outputs.version }} \
+                             -t ${{ secrets.Docker_username }}/frontend:${{ github.sha }} \
+                             .
+                docker push ${{ secrets.Docker_username }}/frontend:latest
+                docker push ${{ secrets.Docker_username }}/frontend:v${{ steps.version.outputs.version }}
+                docker push ${{ secrets.Docker_username }}/frontend:${{ github.sha }}
+            
+            - name: Log out from Docker Hub
+              if: always()
+              run: docker logout
+            
             - name: Set output results
               id: set_results
-              run: echo "results=success" >> $GITHUB_OUTPUT
-            
+              run: echo "results=success - pushed v${{ steps.version.outputs.version }}" >> $GITHUB_OUTPUT
+
 
