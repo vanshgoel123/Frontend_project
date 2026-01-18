@@ -1,8 +1,6 @@
 name: Frontend CI
 on:
     push:
-        branches:
-            - main
     pull_request:
         branches:
             - main
@@ -76,6 +74,7 @@ jobs:
               run: npm run test
     Deploy:
         needs: Test
+        if: github.event_name == 'pull_request'
         uses: ./.github/workflows/deploy.yml
         secrets:
             Docker_username: ${{ secrets.DOCKER_USERNAME }}
