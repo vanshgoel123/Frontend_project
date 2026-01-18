@@ -75,13 +75,15 @@ jobs:
             - name: Run Tests
               run: npm run test
     Deploy:
-        runs-on: ubuntu-latest
         needs: Test
+        uses: ./.github/workflows/deploy.yml
+        secrets:
+            Docker_username: ${{ secrets.DOCKER_USERNAME }}
+            Docker_password: ${{ secrets.DOCKER_TOKEN }}
+    print_result:
+        needs: Deploy
+        runs-on: ubuntu-latest
         steps:
-            - name: Download the artifacts
-              uses: actions/download-artifact@v4
-              with:
-                name: frontend-build
-                path: build
-            - name: Deploy Frontend
-              run: echo "frontend deployed"
+            - name: Print Deployment Result
+              run: |
+                  echo "Deployment Result: ${{ needs.Deploy.outputs.results }}"
